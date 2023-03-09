@@ -1,0 +1,53 @@
+Following our meeting, here’s the description of the information that is being sent. 
+
+    Adherence:
+
+        Green: > 90%
+        Yellow: >70%
+        Red: <=70%
+        Comments:
+
+            It's calculated from the past 7 days, excluding the current day.
+            The unit should be in percentage.
+            The calculation should take place by "weighting" the medication based on the active ingredients.
+            The weighting of the drugs should be done taking care of the ones included in the pdf, which are twice as impactful as the others
+    Medication:
+        Red: 0 - <70%
+        Yellow: 70 - <90%
+        Green: 90 - 100%
+        Comments:
+            It's calculated for every day of the past 28 days, excluding the current day.
+            Describes to what extent the prescribed medication plan is matched with the medication intake.
+    Blood Pressure:
+        Systolic
+            > 180mmHg = red
+            > 160mmHg = orange
+            > 140mmHg = yellow
+            > 130mmHg = blue
+            > 110mmHg = green
+            > 90mmHg = yellow
+            <= 90mmHg = red
+        Diastolic
+            > 110mmHg = red
+            > 90mmHg = yellow
+            > 80mmHg = blue
+            > 60mmHg = green
+            > 50mmHg = yellow
+            <= 50mmHg = red
+    Heart Rate:
+        Red > 120
+        Yellow > 110
+        Orange > 90
+        Green > 60
+        Yellow > 50
+        Red: <= 50
+    Body Temperature:
+        > 38.0 ° C = red 
+        > 37.5 ° C = orange
+        > 37.0 ° C = yellow
+        <= 37.0 ° C = green
+    Body Weight:
+        > +/- 5.0 kg = red
+        > +/- 3.0kg = yellow
+        <= +/- 2.0kg = green
+
