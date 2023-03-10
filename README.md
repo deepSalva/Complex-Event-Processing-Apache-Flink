@@ -57,7 +57,7 @@ the Kafka source is expecting the following parameters to be set
 - "group.id" the id of the consumer group
 - "topic" the name of the topic to read data from.
 
-As an example fo the arguments:
+As an example for the arguments:
 
 ```agsl
 --topic
@@ -76,18 +76,19 @@ myGroup
 
 ### Dataset
 
-As we said before, the data from the patients is protected, therefore, to run the project 
-it is necessary to generate our own dummy data. 
+As we said before, the data from the patients is protected, therefore, to run the project
+it is necessary to generate our own dummy data.
 
-The data need to be generated and fed to Kafka consumer, locally. We have to choose **topic**
-name for the data and then this topic name will be inserted in the arguments above. 
+The data needs to be generated and fed to Kafka consumers, locally. We have to choose **topic**
+name for the data and then this topic name will be inserted in the arguments above.
 
-This data consist of a JSON file including relevant data produced for the patient with the 
+This data consist of a JSON file including relevant data produced for the patient with the
 device. As you can see in the example first JSON row, we have a `MACSSID` identity for the patients and in this case
-the JSON shows a meassurement of `BW`, meaning Body Weight, in this case of `Amount` 58.0 kg. 
+the JSON shows a meassurement of `BW`, meaning Body Weight, in this case `Amount` 58.0 kg.
 
 There is only 5 types of JSON as shown below:
-* `BW`:  Body Weight
+
+* `BW`: Body Weight
 * `HR`: Heart Rate
 * `BT`: Body Temperature
 * `BP`: Blood Pressure
@@ -119,28 +120,29 @@ The output data after the monitoring will be as below:
 Notice that the output already shows the CEP analysis, showing the `"Flag"` field with an Integer.
 More about flags explained below.
 
-This repository doesn't include the data generator due to a policy from the BigMedilytics Project. 
+This repository doesn't include the data generator due to a policy from the BigMedilytics Project.
 If you want to generate your own data, it has to be exactly the same as shown in the JSON example above. But
-to feed Kafka, you need to feed it one row at a time. 
+to feed Kafka, you need to feed it one row at a time.
 
-**COMMON ERRORS**: Ingestion time. The ingestion time has to be progressive in time going forward. 
+**COMMON ERRORS**: Ingestion time. The ingestion time has to be progressive in time going forward.
 Also check the start date of the Timestamps and be sure that doesn't violate any constraint in the Flink
-ingestion time configuration. 
+ingestion time configuration.
 
 **WARNING**: After the project start and Flink local cluster starts, if you want to feed the data again, and the
-ingestion time is not older that the last JSON ingested, then will be error. For that, it is necessary to restart
+ingestion time is not older than the last JSON ingested, then there will be an error. For that, it is necessary to restart
 the Flink cluster before ingesting the data again.
+
 
 ## Project structure
 
 ![Alt text](img/stream-pipeline-arch.png)
 
-The image above shows the pipeline architecture. 
+The image above shows the pipeline architecture.
 
-1. The data or messages are consumed by Kafka and then produced into Flink CEP monitoring engine. 
-2. After the analysis, the results are sink back to Kafka to another topic. 
-3. We also have the option to store the results in InfluxDB if need it. The repository has an API `main/java/Stream/Influx` 
 
+1. The data or messages are consumed by Kafka and then produced into Flink CEP monitoring engine.
+2. After the analysis, the results sink back to Kafka to another topic.
+3. We also have the option to store the results in InfluxDB if needed. The repository has an API `main/java/Stream/Influx`
 ### Complex Event Processing
 
 [FlinkCEP](https://nightlies.apache.org/flink/flink-docs-release-1.16/docs/libs/cep/) 
@@ -165,18 +167,18 @@ PatternStream<Tuple7<String, String, Double, Double, Long, Long, String>> MDMatc
 
 In our project we created a pattern for each measurement. The idea is to check the measurements values against
 our pattern and trigger a **flag** depends on the results. 
-These flags are represented with the integers: `1, 2, 3`. At the same time, these integers represent a colour
+These flags are represented with the integers: `1, 2, 3`. At the same time, these integers represent a color
 and for instance a level of alarm in the measurements results. 
 
 * `1`: Green Flag, or normal values
 * `2`: Yellow Flag, or warning
 * `3`: Red Flag, or alarm
 
-The logic behind the patterns where disused with the doctors based on medical knowledge. You can find the 
+The logic behind the patterns were disused with the doctors based on medical knowledge. You can find the
 measurement values and their warning ranges in the file: `data/adherenceMetadata.txt`
 
-Also, if you are more interested in this topic you can have a look to this [research](https://pubmed.ncbi.nlm.nih.gov/19194283/).
 
+Also, if you are more interested in this topic you can have a look at this [research](https://pubmed.ncbi.nlm.nih.gov/19194283/).
 ### Running the project
 To run the project we need to have a local environment for the Flink cluster and Kafka. 
 Then, you have to run the file `src/main/java/Stream/MainStream.java` with Flink and with the arguments ready. 
@@ -202,4 +204,4 @@ sleep 5
 ```
 
 In this example is missing the data generator. Any script that produces the JSON files in the shape explained 
-above and then produces the data into Kafka will serve as data generator. 
+above and then produces the data into Kafka will serve as a data generator. 
