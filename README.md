@@ -36,7 +36,7 @@ Prerequisites:
 
 ### Dependencies
 
-* Apache Flink 1.9.0
+* Apache Flink 1.9.0 - DataStream API
 * Flink-connector-kafka 11_2.11
 * flink-cep_2.1
 * influxdb-java 2.9
